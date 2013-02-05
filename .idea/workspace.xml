@@ -38,10 +38,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="web_spec.coffee" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="web_spec.coffee" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/web_spec.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="16" selection-start="1846" selection-end="1846" vertical-scroll-proportion="0.0">
+            <state line="19" column="8" selection-start="657" selection-end="657" vertical-scroll-proportion="0.50353354">
               <folding />
             </state>
           </provider>
@@ -74,10 +74,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="40" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.9493671">
+            <state line="29" column="24" selection-start="1055" selection-end="1055" vertical-scroll-proportion="-16.73077">
               <folding />
             </state>
           </provider>
@@ -116,8 +116,8 @@
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/views/index.jade" />
         <option value="$PROJECT_DIR$/views/register.jade" />
-        <option value="$PROJECT_DIR$/test/web_spec.coffee" />
         <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/test/web_spec.coffee" />
       </list>
     </option>
   </component>
@@ -415,16 +415,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/web_spec.coffee">
+    <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="16" selection-start="1846" selection-end="1846" vertical-scroll-proportion="0.0">
+        <state line="29" column="24" selection-start="1055" selection-end="1055" vertical-scroll-proportion="-16.73077">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
+    <entry file="file://$PROJECT_DIR$/test/web_spec.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="40" selection-start="1285" selection-end="1285" vertical-scroll-proportion="0.9493671">
+        <state line="19" column="8" selection-start="657" selection-end="657" vertical-scroll-proportion="0.50353354">
           <folding />
         </state>
       </provider>
