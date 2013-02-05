@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    h1= title
+    div(class="container-fluid")
+          div(class="row-fluid")
+              h2(class="form-signin-heading") Log in
+              - if(locals.flashmsg)
+                  div(id='flash') #{locals.flashmsg}
+              form(name="input", action="/login", method="post", class="form-signin")
+
+                  div
+                      input(type="text", name="username", class="input-block-level", placeholder="Email address")
+                  div
+                      input(type="password", name="password", class="input-block-level", placeholder="Password")
+                  div
+                      input(type="submit", id="login", class="btn btn-large btn-primary")
+
+    a(href="/register") Register a new account
+

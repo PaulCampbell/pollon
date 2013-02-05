@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    h1  Get an account and get learning!
+    section.css-table
+        h1 Register
+
+        - if(locals.flashmsg)
+            div(class="alert alert-error") #{locals.flashmsg}
+
+        form(name="register", action="/register", method="post")
+          div
+            label Username:
+            input(name='user[username]', value=user.username || '')
+            - if(locals.validationerrors.username)
+                label(for="user[username]", class="text-error") #{locals.validationerrors.username.type}
+          div
+            label Email:
+            input(name='user[email]', value=user.email || '')
+            - if(locals.validationerrors.email)
+                label(for="user[email]", class="text-error") #{locals.validationerrors.email.type}
+          div
+            label Password:
+            input(name='user[password]', value=user.password || '', type='password')
+            - if(locals.validationerrors.password)
+                label(for="user[password]", class="text-error") #{locals.validationerrors.password.type}
+          div
+            input(type="submit", id='register', value="Register")
+
