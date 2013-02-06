@@ -2,6 +2,23 @@ should = require 'should'
 zombie = require 'zombie'
 Users = require '../Models/User.js'
 
+mongoose = require 'mongoose'
+
+mongoose.connect 'mongodb://localhost/seeed_test'
+
+before  (done) ->
+  user = new Users.User ({ username: "jimbob", email: "jimbob@southwest.us", password: "banjo" })
+  user.save (err) ->
+    if err
+      console.log err
+    done()
+
+after  (done) ->
+  Users.User.remove (err) ->
+    if err
+      console.log err
+    done()
+
 describe 'Web tests', ->
 
   describe 'log in', ->
@@ -12,14 +29,6 @@ describe 'Web tests', ->
           done()
 
   describe 'Register', ->
-    before  (done) ->
-      user = new Users.User { username: "jimbob", email: "jimbob@southwest.us", password: "banjo" } ;
-      user.save (err) ->
-        if err
-          console.log('BEFORE FAILED. WTF?!?')
-        done()
-
-
 
     it 'should have no error lables when it first loads', (done) ->
       zombie.visit 'http://localhost:2999/register', (e, browser) ->
