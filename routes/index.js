@@ -22,9 +22,9 @@ function register(req, res) {
 
     function userSaveFailed(err) {
         if(err.code == 11000 && err.err.indexOf("email") != -1)
-          err = {message: 'Validation failed', name: 'ValidationError',errors: {email: { type: "Email already exists"}}};
+          err = {message: 'Validation failed', name: 'ValidationError',errors: {email: { type: "Email already in use"}}};
         if(err.code == 11000 && err.err.indexOf("username") != -1)
-          err = {message: 'Validation failed', name: 'ValidationError',errors: {username: { type: "Username already exists"}}};
+          err = {message: 'Validation failed', name: 'ValidationError',errors: {username: { type: "Username already in use"}}};
         if(err.type=="noPassword")
           err = {message: 'Validation failed', name: 'ValidationError',errors: {password: { type: "required"}}};
         console.log(err)
@@ -40,7 +40,7 @@ function register(req, res) {
     user.save(function(err) {
         if (err) return userSaveFailed(err);
         req.flash('info', 'Your account has been created');
-        Emails.sendWelcome(user);
+       // Emails.sendWelcome(user);
         req.session.user_id = user.id;
         res.redirect('/');
     });

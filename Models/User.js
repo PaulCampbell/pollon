@@ -9,7 +9,8 @@ var usernameValidator = [validator.len(3, 50, 'Must be between 3 and 50 characte
 var emailValidator = [validator.isEmail('Must be valid email address')]
 
 var UserSchema = new Schema({
-        email: { type: String,
+        email: {
+            type: String,
             required:true,
             validate: emailValidator,
             unique: true
