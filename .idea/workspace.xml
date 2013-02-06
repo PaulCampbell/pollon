@@ -41,7 +41,7 @@
       <file leaf-file-name="web_spec.coffee" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/web_spec.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="6" selection-start="416" selection-end="416" vertical-scroll-proportion="0.3074205">
+            <state line="51" column="43" selection-start="1754" selection-end="1754" vertical-scroll-proportion="0.2844523">
               <folding />
             </state>
           </provider>
@@ -424,7 +424,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test/web_spec.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="6" selection-start="416" selection-end="416" vertical-scroll-proportion="0.3074205">
+        <state line="51" column="43" selection-start="1754" selection-end="1754" vertical-scroll-proportion="0.2844523">
           <folding />
         </state>
       </provider>

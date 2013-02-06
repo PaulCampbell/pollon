@@ -66,4 +66,8 @@ describe 'Web tests', ->
               done()
 
 
-
+    it 'should return error label when username already in use', (done) ->
+      zombie.visit 'http://localhost:2999/register', (e, browser) ->
+        browser.fill('input[name="user[username]"]', 'jimbob').fill('input[name="user[email]"]', 'email@email.com').pressButton '#register', ->
+          browser.text('.text-error[for="user[username]"]').should.equal 'Username already in use'
+          done()
