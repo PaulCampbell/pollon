@@ -1,11 +1,14 @@
 var Users = require('../Models/User.js');
 var flash = require('connect-flash');
+var Emails = require ('../services/emails.js')
+var PasswordResets = require ('../Models/PasswordReset.js')
 
 exports.index = function(req, res){
     console.log (req.session.user_id)
   res.render('index', {
       title: 'Express',
-      username: req.session.user_id
+      username: req.session.user_id,
+      flashmsg: req.flash('error')
   });
 };
 
@@ -44,7 +47,7 @@ function register(req, res) {
     user.save(function(err) {
         if (err) return userSaveFailed(err);
         req.flash('info', 'Your account has been created');
-       // Emails.sendWelcome(user);
+        Emails.sendWelcome(user);
         req.session.user_id = user.id;
         res.redirect('/');
     });
@@ -92,7 +95,53 @@ function logout (req, res) {
 exports.logout = logout;
 
 
-function forgottenpassword (req, res) {
+function forgottenPassword (req, res) {
+    res.render('forgottenpassword', {
+              title: "Forgotten password"
+          });
+        }
 
+exports.forgottenPassword = forgottenPassword
+
+
+function passwordRequest(req,res) {
+    var post = req.body;
+    Users.User.findOne( { username: post.email }, function(err, user){
+        if(err)
+            console.log('invalid email')
+        else {
+            var passwordReset = new PasswordResets.PasswordReset( { user: user._id})
+            passwordReset.save(function(err){
+                if(err)  console.log('error doing a password reset: ' + err)
+                Emails.sendPasswordReset(user, passwordReset);
+
+            })
+        }
+
+
+        res.render('passwordreset', {
+            title: "Password reset requested"
+        });
+    });
 }
-exports.forgottenpassword = forgottenpassword
+
+exports.passwordRequest = passwordRequest
+
+
+function changePassword(req,res) {
+
+    function invalidToken(err) {
+        req.flash('error', err);
+        res.redirect('/');
+    }
+
+    var postedtoken =  req.params.token;
+    PasswordResets.PasswordReset.findOne({token: postedtoken}, function(err, token){
+        console.log(token)
+        console.log(err)
+        return invalidToken('Password reset link invalid');
+
+    })
+}
+
+exports.changePassword = changePassword;

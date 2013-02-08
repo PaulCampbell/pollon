@@ -1,6 +1,8 @@
 extends layout
 
 block content
+    - if(locals.flashmsg)
+        div(id='flash') #{locals.flashmsg}
     h1= title
 
     - if (locals.username)
@@ -8,12 +10,11 @@ block content
     div(class="container-fluid")
         - if (!locals.username)
           div(class="row-fluid")
-              h2(class="form-signin-heading") Log in
-              - if(locals.flashmsg)
-                  div(id='flash') #{locals.flashmsg}
+             h2(class="form-signin-heading") Log in
 
 
-                form(name="input", action="/login", method="post", class="form-signin")
+
+             form(name="input", action="/login", method="post", class="form-signin")
 
                   div
                       input(type="text", name="email", class="input-block-level", placeholder="Email address")
@@ -22,6 +23,7 @@ block content
                   div
                       input(type="submit", id="login", class="btn btn-large btn-primary")
 
-                a(href="/forgottenpassword") Forgotten your password?
-                a(href="/register") Register a new account
+             a(href="/forgotten-password") Forgotten your password?
+
+             a(href="/register") Register a new account
 

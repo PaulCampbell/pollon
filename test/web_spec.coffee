@@ -112,3 +112,12 @@ describe 'Web tests', ->
           browser.fill('input[name="user[username]"]', 'a').pressButton '#register', ->
             browser.text('.text-error[for="user[username]"]').should.equal 'Must be between 3 and 50 characters'
             done()
+
+  describe 'password reset', ->
+
+    it 'should redirect to home if the token is non existent', (done) ->
+      zombie.visit 'http://localhost:2999/change-password/stupidguid', (e, browser) ->
+        console.log(browser.location.pathname)
+        browser.location.pathname.should.equal '/'
+        browser.text('#flash').should.equal 'Password reset link invalid'
+        done()

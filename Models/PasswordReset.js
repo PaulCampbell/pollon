@@ -11,11 +11,17 @@ var PasswordResetSchema = new Schema({
         user: { type: Schema.Types.ObjectId , ref: 'User'}
 });
 
+PasswordResetSchema.virtual('isValid').get(function(){
+   var cutOffDate = new Date();
+   cutOffDate.setDate(new Date().getDate()-1)
+   return this.requested > cutOffDate;
+});
+
+
 PasswordResetSchema.pre('save', function(next) {
     this.token = guid();
     return next();
  });
-
 
 function s4() {
   return Math.floor((1 + Math.random()) * 0x10000)
@@ -27,6 +33,5 @@ function guid() {
   return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
          s4() + '-' + s4() + s4() + s4();
 }
-
 
 exports.PasswordReset = mongoose.model('PasswordReset', PasswordResetSchema)

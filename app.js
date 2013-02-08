@@ -43,7 +43,9 @@ app.get('/register', home.registerForm);
 app.post('/register', home.register);
 app.post('/login', home.login);
 app.get('/logout', home.logout);
-app.get('/forgottenpassword', home.forgottenpassword);
+app.get('/forgotten-password', home.forgottenPassword);
+app.post('/request-password', home.passwordRequest);
+app.get('/change-password/:token', home.changePassword)
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
