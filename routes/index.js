@@ -106,7 +106,8 @@ exports.forgottenPassword = forgottenPassword
 
 function passwordRequest(req,res) {
     var post = req.body;
-    Users.User.findOne( { username: post.email }, function(err, user){
+    var passwordResetToken = '';
+    Users.User.findOne( { email: post.email }, function(err, user){
         if(err)
             console.log('invalid email')
         else {
@@ -114,13 +115,14 @@ function passwordRequest(req,res) {
             passwordReset.save(function(err){
                 if(err)  console.log('error doing a password reset: ' + err)
                 Emails.sendPasswordReset(user, passwordReset);
-
+                passwordResetToken = passwordReset.token;
+                console.log('password reset with token: ' + passwordReset.token + 'generated for user ' + user.username)
             })
         }
 
-
         res.render('passwordreset', {
-            title: "Password reset requested"
+            title: "Password reset requested",
+            passwordResetToken:passwordResetToken
         });
     });
 }
@@ -134,14 +136,14 @@ function changePassword(req,res) {
         req.flash('error', err);
         res.redirect('/');
     }
-
     var postedtoken =  req.params.token;
     PasswordResets.PasswordReset.findOne({token: postedtoken}, function(err, token){
-        console.log(token)
-        console.log(err)
-        return invalidToken('Password reset link invalid');
-
+        if(!token)
+          return invalidToken('Password reset link invalid');
+        if (!token.isValid())
+          return invalidToken('Password reset link expired');
     })
 }
 
 exports.changePassword = changePassword;
+

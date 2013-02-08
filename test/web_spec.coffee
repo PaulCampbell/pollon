@@ -1,10 +1,12 @@
 should = require 'should'
 zombie = require 'zombie'
 Users = require '../Models/User.js'
+PasswordResets = require '../Models/PasswordReset.js'
 
 mongoose = require 'mongoose'
 
 mongoose.connect 'mongodb://localhost/seeed_test'
+user = null
 
 before  (done) ->
   user = new Users.User ({ username: "jimbob", email: "jimbob@southwest.us", password: "banjo" })
@@ -117,7 +119,19 @@ describe 'Web tests', ->
 
     it 'should redirect to home if the token is non existent', (done) ->
       zombie.visit 'http://localhost:2999/change-password/stupidguid', (e, browser) ->
-        console.log(browser.location.pathname)
         browser.location.pathname.should.equal '/'
         browser.text('#flash').should.equal 'Password reset link invalid'
         done()
+
+    it 'should redirect to home if the token is expired', (done) ->
+      two_days_ago = new Date()
+      two_days_ago.setDate(new Date().getDate()-2)
+      password_reset = new PasswordResets.PasswordReset({user:user._id, requested: two_days_ago});
+      password_reset.save (err) ->
+        if err
+          console.log(err)
+        zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
+          console.log(browser.text('#flash'))
+          browser.location.pathname.should.equal '/'
+          browser.text('#flash').should.equal 'Password reset link expired'
+          done()

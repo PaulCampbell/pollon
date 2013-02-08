@@ -43,8 +43,8 @@ emails = {
     this.send('welcome.jade', { to: user.email, subject: 'Welcome' }, { locals: { user: user } });
   },
 
-  sendWelcome: function(user) {
-    this.send('passwordreset.jade', { to: user.email, subject: 'Welcome' }, { locals: { user: user } });
+  sendPasswordReset: function(user, passwordReset) {
+    this.send('passwordreset.jade', { to: user.email, subject: 'Welcome' }, { locals: { user: user, passwordReset: passwordReset } });
   }
 
 };
@@ -52,3 +52,4 @@ emails = {
 
 exports.send = emails.send;
 exports.sendWelcome = emails.sendWelcome;
+exports.sendPasswordReset= emails.sendPasswordReset;
