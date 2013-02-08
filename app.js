@@ -43,6 +43,7 @@ app.get('/register', home.registerForm);
 app.post('/register', home.register);
 app.post('/login', home.login);
 app.get('/logout', home.logout);
+app.get('/forgottenpassword', home.forgottenpassword);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

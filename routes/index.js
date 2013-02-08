@@ -2,7 +2,11 @@ var Users = require('../Models/User.js');
 var flash = require('connect-flash');
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+    console.log (req.session.user_id)
+  res.render('index', {
+      title: 'Express',
+      username: req.session.user_id
+  });
 };
 
 
@@ -53,13 +57,13 @@ function login (req, res) {
     var post = req.body;
 
     function loginFailed(){
-       req.flash('error', 'Username or password incorrect');
+       req.flash('error', 'Email or password incorrect');
        res.render('index', {
            flashmsg: req.flash('error'),
            title: 'Express'
        });
     }
-    Users.User.findOne({username: post.username}, function (err, user) {
+    Users.User.findOne({email: post.email}, function (err, user) {
        if (err || !user) {
            return loginFailed();
        } else {
@@ -82,7 +86,13 @@ exports.login = login;
 
 function logout (req, res) {
  delete req.session.user_id;
- res.redirect('/login');
+ res.redirect('/');
 }
 
 exports.logout = logout;
+
+
+function forgottenpassword (req, res) {
+
+}
+exports.forgottenpassword = forgottenpassword

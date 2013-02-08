@@ -2,19 +2,26 @@ extends layout
 
 block content
     h1= title
+
+    - if (locals.username)
+      a(href="/logout", id="logout") sign out
     div(class="container-fluid")
+        - if (!locals.username)
           div(class="row-fluid")
               h2(class="form-signin-heading") Log in
               - if(locals.flashmsg)
                   div(id='flash') #{locals.flashmsg}
-              form(name="input", action="/login", method="post", class="form-signin")
+
+
+                form(name="input", action="/login", method="post", class="form-signin")
 
                   div
-                      input(type="text", name="username", class="input-block-level", placeholder="Email address")
+                      input(type="text", name="email", class="input-block-level", placeholder="Email address")
                   div
                       input(type="password", name="password", class="input-block-level", placeholder="Password")
                   div
                       input(type="submit", id="login", class="btn btn-large btn-primary")
 
-    a(href="/register") Register a new account
+                a(href="/forgottenpassword") Forgotten your password?
+                a(href="/register") Register a new account
 

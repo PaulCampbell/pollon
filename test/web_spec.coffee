@@ -25,7 +25,27 @@ describe 'Web tests', ->
     it 'should return error when no email or password entered', (done) ->
       zombie.visit 'http://localhost:2999/',(e, browser)  ->
         browser.pressButton '#login', ->
-          browser.text('#flash').should.equal 'Username or password incorrect'
+          browser.text('#flash').should.equal 'Email or password incorrect'
+          done()
+
+    it 'should return error when incorrect email or password entered', (done) ->
+          zombie.visit 'http://localhost:2999/',(e, browser)  ->
+            browser.fill('input[name="email"]', 'noone@email.com').fill('input[name="password"]', 'XXX').
+            pressButton '#login', ->
+              browser.text('#flash').should.equal 'Email or password incorrect'
+              done()
+
+    it 'should not display log out link when not logged in', (done) ->
+      zombie.visit 'http://localhost:2999/',(e, browser)  ->
+        browser.queryAll('#logout').length.should.equal 0
+        done()
+
+    it 'should display log out link once logged in', (done) ->
+      zombie.visit 'http://localhost:2999/', {debug: true},(e, browser)  ->
+        browser.fill('input[name="email"]', 'jimbob@southwest.us').fill('input[name="password"]', 'banjo').
+        pressButton '#login', ->
+          console.log(browser.queryAll('.text-error').length)
+          browser.queryAll('#logout').length.should.equal 1
           done()
 
   describe 'user registration', ->
