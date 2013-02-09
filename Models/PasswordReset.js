@@ -4,34 +4,28 @@ var ObjectId = Schema.ObjectId;
 
 var PasswordResetSchema = new Schema({
         requested: {type:Date, default: Date.now},
-        token: {
-            type: String,
-            unique: true
-        },
-        user: { type: Schema.Types.ObjectId , ref: 'User'}
+        user: { type: Schema.Types.ObjectId , ref: 'User'},
+        fullfilled: { type: Boolean, default: false},
+        token: { type:String }
 });
 
 PasswordResetSchema.virtual('isValid').get(function(){
    var cutOffDate = new Date();
    cutOffDate.setDate(new Date().getDate()-1)
-   return this.requested > cutOffDate;
+   return (this.requested > cutOffDate) && this.fullfilled == false;
 });
 
+PasswordResetSchema.virtual('id')
+   .get(function() {
+     return this._id.toHexString();
+   });
 
 PasswordResetSchema.pre('save', function(next) {
-    this.token = guid();
+    if(this.isNew){
+       this.token = this.id;
+    }
     return next();
  });
 
-function s4() {
-  return Math.floor((1 + Math.random()) * 0x10000)
-             .toString(16)
-             .substring(1);
-};
-
-function guid() {
-  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-         s4() + '-' + s4() + s4() + s4();
-}
 
 exports.PasswordReset = mongoose.model('PasswordReset', PasswordResetSchema)

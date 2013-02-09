@@ -5,7 +5,7 @@ PasswordResets = require '../Models/PasswordReset.js'
 
 mongoose = require 'mongoose'
 
-mongoose.connect 'mongodb://localhost/seeed_test'
+mongoose.connect 'mongodb://localhost/vocab_dev'
 user = null
 
 before  (done) ->
@@ -43,7 +43,7 @@ describe 'Web tests', ->
         done()
 
     it 'should display log out link once logged in', (done) ->
-      zombie.visit 'http://localhost:2999/', {debug: true},(e, browser)  ->
+      zombie.visit 'http://localhost:2999/', (e, browser)  ->
         browser.fill('input[name="email"]', 'jimbob@southwest.us').fill('input[name="password"]', 'banjo').
         pressButton '#login', ->
           console.log(browser.queryAll('.text-error').length)
@@ -118,7 +118,7 @@ describe 'Web tests', ->
   describe 'password reset', ->
 
     it 'should redirect to home if the token is non existent', (done) ->
-      zombie.visit 'http://localhost:2999/change-password/stupidguid', (e, browser) ->
+      zombie.visit 'http://localhost:2999/change-password/notanid', (e, browser) ->
         browser.location.pathname.should.equal '/'
         browser.text('#flash').should.equal 'Password reset link invalid'
         done()
@@ -131,7 +131,6 @@ describe 'Web tests', ->
         if err
           console.log(err)
         zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
-          console.log(browser.text('#flash'))
           browser.location.pathname.should.equal '/'
           browser.text('#flash').should.equal 'Password reset link expired'
           done()

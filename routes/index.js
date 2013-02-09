@@ -3,8 +3,8 @@ var flash = require('connect-flash');
 var Emails = require ('../services/emails.js')
 var PasswordResets = require ('../Models/PasswordReset.js')
 
+
 exports.index = function(req, res){
-    console.log (req.session.user_id)
   res.render('index', {
       title: 'Express',
       username: req.session.user_id,
@@ -70,7 +70,6 @@ function login (req, res) {
        if (err || !user) {
            return loginFailed();
        } else {
-           console.log(user)
            if(user.authenticate(post.password))
            {
                req.session.user_id = user.username;
@@ -136,12 +135,23 @@ function changePassword(req,res) {
         req.flash('error', err);
         res.redirect('/');
     }
+
     var postedtoken =  req.params.token;
-    PasswordResets.PasswordReset.findOne({token: postedtoken}, function(err, token){
-        if(!token)
+    PasswordResets.PasswordReset.find(function(err, models) {
+        console.log(models)
+
+    PasswordResets.PasswordReset.findOne( {token: postedtoken}, function(err, model){
+        console.log('ERR ******* ' + err)
+        console.log('MODEL ******* ' + model)
+        if(!model)
           return invalidToken('Password reset link invalid');
-        if (!token.isValid())
+        else if (!model.isValid)
           return invalidToken('Password reset link expired');
+        else
+          console.log('password reset valid!')
+
+
+    })
     })
 }
 

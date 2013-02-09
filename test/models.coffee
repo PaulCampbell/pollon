@@ -20,10 +20,6 @@ before  (done) ->
 
 describe 'PasswordReset', ->
 
-  it 'should have a token that looks something like a guid', (done) ->
-    password_reset.token.length.should.equal 36
-    done()
-
   it 'should get timestamped', (done) ->
     password_reset.requested.getDate().should.equal new Date().getDate()
     done()
@@ -39,3 +35,10 @@ describe 'PasswordReset', ->
     password_reset.requested = two_days_ago
     password_reset.isValid.should.equal false
     done()
+
+  it 'should report invalid if the token has already been used', (done) ->
+    password_reset.requested = new Date()
+    password_reset.fullfilled = true
+    password_reset.isValid.should.equal false
+    done()
+

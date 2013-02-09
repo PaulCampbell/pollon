@@ -20,28 +20,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.jade" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/index.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="25" selection-start="34" selection-end="55" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="emails.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/services/emails.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="45" column="2" selection-start="1288" selection-end="1288" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="forgottenpassword.jade" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/forgottenpassword.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="126" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -56,10 +38,28 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="passwordservice.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/services/passwordservice.js">
+      <file leaf-file-name="User.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Models/User.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="35" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/user.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="2" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PasswordReset.js" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Models/PasswordReset.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="0" selection-start="338" selection-end="338" vertical-scroll-proportion="0.4032258">
               <folding />
             </state>
           </provider>
@@ -68,34 +68,25 @@
       <file leaf-file-name="web_spec.coffee" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/web_spec.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="129" column="20" selection-start="5590" selection-end="5604" vertical-scroll-proportion="0.0">
+            <state line="48" column="61" selection-start="1753" selection-end="1753" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="User.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Models/User.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="49" selection-start="1950" selection-end="1950" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PasswordReset.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Models/PasswordReset.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="29" column="2" selection-start="733" selection-end="733" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="app.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="47" selection-start="326" selection-end="355" vertical-scroll-proportion="0.66852367">
+            <state line="16" column="47" selection-start="346" selection-end="355" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/models.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="33" column="48" selection-start="942" selection-end="942" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -104,7 +95,16 @@
       <file leaf-file-name="index.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="142" column="29" selection-start="4101" selection-end="4101" vertical-scroll-proportion="0.0">
+            <state line="153" column="6" selection-start="4350" selection-end="4350" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="passwordservice.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/services/passwordservice.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -123,8 +123,6 @@
         <option value="$PROJECT_DIR$/Models/User.js" />
         <option value="$PROJECT_DIR$/services/passwordservice.js" />
         <option value="$PROJECT_DIR$/test/password_reset.coffee" />
-        <option value="$PROJECT_DIR$/test/models.coffee" />
-        <option value="$PROJECT_DIR$/Models/PasswordReset.js" />
         <option value="$PROJECT_DIR$/views/forgottenpassword.jade" />
         <option value="$PROJECT_DIR$/routes/emails.js" />
         <option value="$PROJECT_DIR$/views/layout.jade" />
@@ -132,16 +130,18 @@
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/views/mailer/passwordreset.jade" />
         <option value="$PROJECT_DIR$/views/index.jade" />
-        <option value="$PROJECT_DIR$/test/web_spec.coffee" />
         <option value="$PROJECT_DIR$/views/passwordreset.jade" />
         <option value="$PROJECT_DIR$/services/emails.js" />
         <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/test/web_spec.coffee" />
+        <option value="$PROJECT_DIR$/test/models.coffee" />
+        <option value="$PROJECT_DIR$/Models/PasswordReset.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="22" />
-    <option name="y" value="44" />
+    <option name="x" value="70" />
+    <option name="y" value="173" />
     <option name="width" value="1406" />
     <option name="height" value="749" />
   </component>
@@ -334,7 +334,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="22" y="44" width="1406" height="749" extended-state="0" />
+    <frame x="70" y="173" width="1406" height="749" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -416,13 +416,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/user.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="2" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/layout.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="17" selection-start="169" selection-end="169" vertical-scroll-proportion="0.0">
@@ -433,34 +426,6 @@
     <entry file="file://$PROJECT_DIR$/views/mailer/welcome.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="26" selection-start="26" selection-end="26" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/models.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="48" selection-start="998" selection-end="1073" vertical-scroll-proportion="0.63709676">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/web_spec.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="129" column="20" selection-start="5590" selection-end="5604" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/services/passwordservice.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Models/PasswordReset.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="2" selection-start="733" selection-end="733" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -493,6 +458,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="2" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Models/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="35" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/services/passwordservice.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="1" selection-end="1" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/services/emails.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="45" column="2" selection-start="1288" selection-end="1288" vertical-scroll-proportion="0.0">
@@ -502,21 +488,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="142" column="29" selection-start="4101" selection-end="4101" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Models/User.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="49" selection-start="1950" selection-end="1950" vertical-scroll-proportion="0.0">
+        <state line="153" column="6" selection-start="4350" selection-end="4350" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="47" selection-start="326" selection-end="355" vertical-scroll-proportion="0.66852367">
+        <state line="16" column="47" selection-start="346" selection-end="355" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/web_spec.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="61" selection-start="1753" selection-end="1753" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/models.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="48" selection-start="942" selection-end="942" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Models/PasswordReset.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="0" selection-start="338" selection-end="338" vertical-scroll-proportion="0.4032258">
           <folding />
         </state>
       </provider>
