@@ -154,11 +154,24 @@ describe 'Web tests', ->
             browser.text('.css-table h1').should.equal 'Update your password'
             done()
 
-      it 'should kick off if the submitted passwords dont match', (done) ->
-        zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
-          browser.fill('input[name="password"]', 'mynewpassword').fill('input[name="confirmPassword"]','nonmatchingpassword').
-          pressButton '#changepassword', ->
-            browser.text('#flash').should.equal 'Passwords do not match'
-            done()
+  describe 'change password submission', ->
+    it 'should kick off if the submitted passwords dont match', (done) ->
+      zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
+        browser.fill('input[name="password"]', 'mynewpassword').fill('input[name="confirmPassword"]','nonmatchingpassword').
+        pressButton '#changepassword', ->
+          browser.text('#flash').should.equal 'Passwords do not match'
+          done()
 
+    it 'should redirect you back home if the token is not found in the db', (done) ->
+      zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
+        browser.fill('input[name="password"]', 'mynewpassword').fill('input[name="confirmPassword"]','mynewpassword').
+        fill('input[name="token"]', 'asdasd').pressButton '#changepassword', ->
+          browser.text('#flash').should.equal 'Password reset link invalid'
+          done()
 
+    it 'should update the password if the passwords match and token is valid', (done) ->
+      zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
+        browser.fill('input[name="password"]', 'mynewpassword').fill('input[name="confirmPassword"]','mynewpassword').
+        pressButton '#changepassword', ->
+          browser.text('#flash').should.equal 'Password changed. Hopefully you can log in now.'
+          done()

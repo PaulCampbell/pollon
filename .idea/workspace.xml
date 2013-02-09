@@ -23,7 +23,7 @@
       <file leaf-file-name="web_spec.coffee" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test/web_spec.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="159" column="43" selection-start="7151" selection-end="7151" vertical-scroll-proportion="0.6411483">
+            <state line="175" column="72" selection-start="8178" selection-end="8178" vertical-scroll-proportion="0.74880385">
               <folding />
             </state>
           </provider>
@@ -42,15 +42,6 @@
         <entry file="file://$PROJECT_DIR$/Models/User.js">
           <provider selected="true" editor-type-id="text-editor">
             <state line="65" column="65" selection-start="1882" selection-end="1912" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="changepassword.jade" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/changepassword.jade">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="56" selection-start="477" selection-end="492" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -486,13 +477,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Models/User.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="65" selection-start="1882" selection-end="1912" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="2" selection-start="107" selection-end="107" vertical-scroll-proportion="0.0">
@@ -509,14 +493,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/changepassword.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="56" selection-start="477" selection-end="492" vertical-scroll-proportion="0.0">
+        <state line="18" column="44" selection-start="548" selection-end="553" vertical-scroll-proportion="0.6081081">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Models/User.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="65" selection-start="1882" selection-end="1912" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/web_spec.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="159" column="43" selection-start="7151" selection-end="7151" vertical-scroll-proportion="0.6411483">
+        <state line="175" column="72" selection-start="8178" selection-end="8178" vertical-scroll-proportion="0.74880385">
           <folding />
         </state>
       </provider>
