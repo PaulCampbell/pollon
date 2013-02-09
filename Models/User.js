@@ -61,7 +61,12 @@ UserSchema.pre('save', function(next) {
             var error = new Error('Password required')
             error.type="noPassword";
             return next(error);
-       }
+        }
+        if(!validateLongEnough(this.password, 6)) {
+            var error = new Error('Must be more than 5 characters')
+            error.type="shortPassword";
+            return next(error);
+        }
     }
     return next();
  });
@@ -69,5 +74,9 @@ UserSchema.pre('save', function(next) {
 function validatePresenceOf(value) {
     return value && value.length;
   }
+
+function validateLongEnough(value, minimumLength) {
+    return value.length >= minimumLength
+}
 
 exports.User = mongoose.model('User', UserSchema)

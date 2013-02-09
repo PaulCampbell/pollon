@@ -34,7 +34,9 @@ function register(req, res) {
           err = {message: 'Validation failed', name: 'ValidationError',errors: {username: { type: "Username already in use"}}};
         if(err.type=="noPassword")
           err = {message: 'Validation failed', name: 'ValidationError',errors: {password: { type: "required"}}};
-        console.log(err)
+        if(err.type=="shortPassword")
+          err = {message: 'Validation failed', name: 'ValidationError',errors: {password: { type: "Must be more than 5 characters"}}};
+
         req.flash('error', 'Account creation failed');
         res.render('register.jade', {
            title: 'register',
@@ -120,8 +122,7 @@ function passwordRequest(req,res) {
         }
 
         res.render('passwordreset', {
-            title: "Password reset requested",
-            passwordResetToken:passwordResetToken
+            title: "Password reset requested"
         });
     });
 }
@@ -137,23 +138,40 @@ function changePassword(req,res) {
     }
 
     var postedtoken =  req.params.token;
-    PasswordResets.PasswordReset.find(function(err, models) {
-        console.log(models)
-
     PasswordResets.PasswordReset.findOne( {token: postedtoken}, function(err, model){
-        console.log('ERR ******* ' + err)
-        console.log('MODEL ******* ' + model)
         if(!model)
           return invalidToken('Password reset link invalid');
         else if (!model.isValid)
           return invalidToken('Password reset link expired');
-        else
+        else {
           console.log('password reset valid!')
-
-
-    })
+          res.render('changepassword', {
+            title: "Update your password",
+            passwordResetToken:postedtoken
+          });
+        }
     })
 }
 
 exports.changePassword = changePassword;
 
+
+function changePasswordRequest(req,res) {
+
+    var postedToken = req.body.token
+
+    function requestFailed(msg, token){
+           req.flash('error', msg);
+           res.render('changepassword', {
+               flashmsg: req.flash('error'),
+               title: "Update your password",
+               passwordResetToken:token
+           });
+        }
+
+    if(req.body.password !== req.body.confirmPassword) {
+        return requestFailed("Passwords do not match", postedToken);
+    }
+}
+
+exports.changePasswordRequest = changePasswordRequest;

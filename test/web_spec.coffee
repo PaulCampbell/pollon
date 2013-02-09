@@ -9,7 +9,7 @@ mongoose.connect 'mongodb://localhost/vocab_dev'
 user = null
 
 before  (done) ->
-  user = new Users.User ({ username: "jimbob", email: "jimbob@southwest.us", password: "banjo" })
+  user = new Users.User ({ username: "jimbob", email: "jimbob@southwest.us", password: "banjo1" })
   user.save (err) ->
     if err
       console.log err
@@ -44,9 +44,8 @@ describe 'Web tests', ->
 
     it 'should display log out link once logged in', (done) ->
       zombie.visit 'http://localhost:2999/', (e, browser)  ->
-        browser.fill('input[name="email"]', 'jimbob@southwest.us').fill('input[name="password"]', 'banjo').
+        browser.fill('input[name="email"]', 'jimbob@southwest.us').fill('input[name="password"]', 'banjo1').
         pressButton '#login', ->
-          console.log(browser.queryAll('.text-error').length)
           browser.queryAll('#logout').length.should.equal 1
           done()
 
@@ -67,8 +66,16 @@ describe 'Web tests', ->
 
       it 'should be present', (done) ->
         zombie.visit 'http://localhost:2999/register', (e, browser) ->
-          browser.fill('input[name="user[email]"]', 'email@email.com').fill('input[name="user[username]"]', 'Jahova').pressButton '#register', ->
+          browser.fill('input[name="user[email]"]', 'email@email.com').fill('input[name="user[username]"]', 'Jahova').
+          pressButton '#register', ->
             browser.text('.text-error[for="user[password]"]').should.equal 'required'
+            done()
+
+      it 'should be more than 5 characters long', (done) ->
+        zombie.visit 'http://localhost:2999/register', (e, browser) ->
+          browser.fill('input[name="user[email]"]', 'email@email.com').fill('input[name="user[username]"]', 'Jahova').
+          fill('input[name="user[password]"]', 'short').pressButton '#register', ->
+            browser.text('.text-error[for="user[password]"]').should.equal 'Must be more than 5 characters'
             done()
 
     describe 'email field validation', ->
@@ -117,20 +124,41 @@ describe 'Web tests', ->
 
   describe 'password reset', ->
 
-    it 'should redirect to home if the token is non existent', (done) ->
-      zombie.visit 'http://localhost:2999/change-password/notanid', (e, browser) ->
-        browser.location.pathname.should.equal '/'
-        browser.text('#flash').should.equal 'Password reset link invalid'
-        done()
-
-    it 'should redirect to home if the token is expired', (done) ->
-      two_days_ago = new Date()
-      two_days_ago.setDate(new Date().getDate()-2)
-      password_reset = new PasswordResets.PasswordReset({user:user._id, requested: two_days_ago});
-      password_reset.save (err) ->
-        if err
-          console.log(err)
-        zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
+    describe 'bad token', ->
+      it 'should redirect to home if the token is non existent', (done) ->
+        zombie.visit 'http://localhost:2999/change-password/notanid', (e, browser) ->
           browser.location.pathname.should.equal '/'
-          browser.text('#flash').should.equal 'Password reset link expired'
+          browser.text('#flash').should.equal 'Password reset link invalid'
           done()
+
+      it 'should redirect to home if the token is expired', (done) ->
+        two_days_ago = new Date()
+        two_days_ago.setDate(new Date().getDate()-2)
+        password_reset = new PasswordResets.PasswordReset({user:user._id, requested: two_days_ago});
+        password_reset.save (err) ->
+          if err
+            console.log(err)
+          zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
+            browser.location.pathname.should.equal '/'
+            browser.text('#flash').should.equal 'Password reset link expired'
+            done()
+
+
+    describe 'good token', ->
+
+      password_reset = null
+      it 'should disply the password update screen', (done) ->
+        password_reset = new PasswordResets.PasswordReset({user:user._id})
+        password_reset.save (err) ->
+          zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
+            browser.text('.css-table h1').should.equal 'Update your password'
+            done()
+
+      it 'should kick off if the submitted passwords dont match', (done) ->
+        zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
+          browser.fill('input[name="password"]', 'mynewpassword').fill('input[name="confirmPassword"]','nonmatchingpassword').
+          pressButton '#changepassword', ->
+            browser.text('#flash').should.equal 'Passwords do not match'
+            done()
+
+
