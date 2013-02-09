@@ -55,18 +55,24 @@ UserSchema.method('encryptPassword', function(password) {
    return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
  });
 
+UserSchema.method('validatePassword', function(password){
+    if (!validatePresenceOf(password)) {
+        var error = new Error('Password required')
+        error.type="noPassword";
+        return error;
+    }
+    if(!validateLongEnough(password, 6)) {
+        var error = new Error('Must be more than 5 characters')
+        error.type="shortPassword";
+        return error;
+    }
+    return;
+});
+
 UserSchema.pre('save', function(next) {
     if(this.isNew){
-        if (!validatePresenceOf(this.password)) {
-            var error = new Error('Password required')
-            error.type="noPassword";
-            return next(error);
-        }
-        if(!validateLongEnough(this.password, 6)) {
-            var error = new Error('Must be more than 5 characters')
-            error.type="shortPassword";
-            return next(error);
-        }
+        var err = this.validatePassword(this.password);
+        if(err) return next(err)
     }
     return next();
  });

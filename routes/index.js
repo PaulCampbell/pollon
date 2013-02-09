@@ -109,7 +109,7 @@ function passwordRequest(req,res) {
     var post = req.body;
     var passwordResetToken = '';
     Users.User.findOne( { email: post.email }, function(err, user){
-        if(err)
+        if(err || !user)
             console.log('invalid email')
         else {
             var passwordReset = new PasswordResets.PasswordReset( { user: user._id})
@@ -172,6 +172,36 @@ function changePasswordRequest(req,res) {
     if(req.body.password !== req.body.confirmPassword) {
         return requestFailed("Passwords do not match", postedToken);
     }
+
+    PasswordResets.PasswordReset.findOne({token:postedToken}).populate('user').exec( function(err, model){
+        if(err || !model || !model.user) {
+            req.flash('error', 'Password reset link invalid');
+            res.redirect('/');
+        }
+        else {
+            var user = model.user;
+            console.log(req.body.password)
+            var validationError = user.validatePassword(req.body.password);
+            var msg = "There has been a problem";
+            if(validationError) {
+                console.log(validationError)
+               if(validationError.type=="noPassword")
+                 msg = "Password required";
+               if(validationError.type=="shortPassword")
+                 msg = "Must be more than 5 characters";
+
+               return requestFailed(msg, postedToken)
+           }
+            user.password = req.body.password;
+            user.save(function(err) {
+                if(err) requestFailed(msg, postedToken)
+                req.flash('error', 'Password changed. Hopefully you can log in now.');
+                req.session.user_id = user.id;
+                res.redirect('/');
+            })
+        }
+
+    })
 }
 
 exports.changePasswordRequest = changePasswordRequest;
