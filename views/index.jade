@@ -6,7 +6,10 @@ block content
     h1= title
 
     - if (locals.username)
-      a(href="/logout", id="logout") sign out
+      div #{locals.username}
+        div
+          a(href="/account-settings") Account settings
+          a(href="/logout", id="logout") Sign out
     div(class="container-fluid")
         - if (!locals.username)
           div(class="row-fluid")

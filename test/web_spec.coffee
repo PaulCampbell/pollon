@@ -155,7 +155,7 @@ describe 'Web tests', ->
         password_reset = new PasswordResets.PasswordReset({user:user._id})
         password_reset.save (err) ->
           zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
-            browser.text('.css-table h1').should.equal 'Update your password'
+            browser.text('.css-table h2').should.equal 'Update your password'
             done()
 
 
@@ -197,16 +197,43 @@ describe 'Web tests', ->
 
   describe 'edit account', ->
     describe 'form page', ->
-      it 'should redirect annonymous user to home page', (done) ->
-        zombie.visit 'http://localhost:2999/account-settings/', (e, browser) ->
-          browser.location.pathname.should.equal '/'
-          browser.text('#flash').should.equal 'You must be logged in for requested action.'
-          done()
+      describe 'annonymous', ->
+        it 'should redirect annonymous user to home page', (done) ->
+          zombie.visit 'http://localhost:2999/account-settings/', (e, browser) ->
+            browser.location.pathname.should.equal '/'
+            browser.text('#flash').should.equal 'You must be logged in for requested action.'
+            done()
 
-      it 'should allow logged in user access', (done) ->
-        zombie.visit 'http://localhost:2999/', (e, browser)  ->
-          browser.fill('input[name="email"]', 'jimbob@southwest.us').fill('input[name="password"]', 'mynewpassword').
-          pressButton '#login', ->
-            browser.visit 'http://localhost:2999/account-settings/', (e, browser) ->
-              browser.text('h2').should.equal 'Account settings'
+      describe 'logged in', ->
+        browser = null
+        before (done) ->
+          zombie.visit 'http://localhost:2999/', (e, brwsr)  ->
+            brwsr.fill('input[name="email"]', 'jimbob@southwest.us').fill('input[name="password"]', 'mynewpassword').
+            pressButton '#login', ->
+              browser = brwsr
               done()
+
+        it 'should allow logged in user access', (done) ->
+          browser.visit 'http://localhost:2999/account-settings/', (e, browser) ->
+            browser.text('h2').should.equal 'Account settings'
+            done()
+
+        it 'form should be populated with users current details', (done) ->
+          browser.visit 'http://localhost:2999/account-settings/', (e, browser) ->
+            browser.queryAll('input[name="user[username]"]')[0].value.should.equal 'jimbob'
+            done()
+
+    describe 'reset password', ->
+      browser = null
+      before (done) ->
+        zombie.visit 'http://localhost:2999/', (e, brwsr)  ->
+          brwsr.fill('input[name="email"]', 'jimbob@southwest.us').fill('input[name="password"]', 'mynewpassword').
+          pressButton '#login', ->
+            browser = brwsr
+            done()
+
+      it 'should generate reset password token and redirect to reset password page', (done) ->
+        browser.visit 'http://localhost:2999/account-settings/', (e, browser) ->
+          browser.pressButton '#changePassword', ->
+            browser.text('h2').should.equal 'Update your password'
+            done()

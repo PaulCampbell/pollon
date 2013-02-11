@@ -16,6 +16,7 @@ app.get('/forgotten-password', account.forgottenPassword);
 app.post('/request-password', account.passwordRequest);
 app.get('/change-password/:token', account.changePassword);
 app.post('/change-password', account.changePasswordRequest);
+app.post('/authedPasswordChange', account.authedPasswordChange, account.accountSettingsForm)
 app.get('/account-settings',authentication.checkAuth, account.accountSettingsForm);
 // app.get('/account-post', account.accountSettings);
 }

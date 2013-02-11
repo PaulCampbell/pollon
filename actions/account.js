@@ -151,7 +151,6 @@ function changePasswordRequest(req,res) {
             user.save(function(err) {
                 if(err) requestFailed(msg, postedToken)
                 req.flash('error', 'Password changed. Hopefully you can log in now.');
-                req.session.user_id = user.id;
                 res.redirect('/');
             })
         }
@@ -160,6 +159,22 @@ function changePasswordRequest(req,res) {
 }
 
 exports.changePasswordRequest = changePasswordRequest;
+
+function authedPasswordChange(req,res) {
+    Users.User.findOne( { username: req.session.username }, function(err, user){
+       if(err || !user)
+           console.log('invalid email')
+       else {
+           var passwordReset = new PasswordResets.PasswordReset( { user: user._id})
+           passwordReset.save(function(err){
+               if(err)  console.log('error doing a password reset: ' + err)
+               res.redirect('/change-password/' + passwordReset.token);
+           })
+       }
+    });
+}
+
+exports.authedPasswordChange = authedPasswordChange;
 
 
 function accountSettingsForm(req, res) {

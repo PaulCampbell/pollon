@@ -23,3 +23,8 @@ block content
           div
             input(type="submit", id='register', value="Update account settings")
 
+
+        form(name="changePassword", action="/authedPasswordChange", method="post")
+          div
+            input(type="hidden", name="token", value="#{locals.username}")
+            input(type="submit", id="changePassword", value="Change password")
