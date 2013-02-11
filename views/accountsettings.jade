@@ -8,7 +8,7 @@ block content
         - if(locals.flashmsg)
             div(class="alert alert-error") #{locals.flashmsg}
 
-        form(name="register", action="/register", method="post")
+        form(name="register", action="/account-settings", method="post")
           div
             label Username:
             input(name='user[username]', value=user.username || '')
@@ -21,7 +21,7 @@ block content
                 label(for="user[email]", class="text-error") #{locals.validationerrors.email.type}
 
           div
-            input(type="submit", id='register', value="Update account settings")
+            input(type="submit", id='update', value="Update account settings")
 
 
         form(name="changePassword", action="/authedPasswordChange", method="post")

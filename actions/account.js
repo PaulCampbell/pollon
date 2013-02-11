@@ -178,10 +178,8 @@ exports.authedPasswordChange = authedPasswordChange;
 
 
 function accountSettingsForm(req, res) {
-    console.log(req.session.username)
     Users.User.findOne({username:req.session.username}, function(err, theUser){
       if(err) console.log(err)
-      console.log(theUser)
       res.render('accountsettings', {
         user: theUser,
         title: 'Account settings',
@@ -191,3 +189,38 @@ function accountSettingsForm(req, res) {
 }
 
 exports.accountSettingsForm = accountSettingsForm;
+
+function accountSettings(req, res){
+
+    function settingsUpdateFailed(err, user) {
+           if(err.code == 11000 && err.err.indexOf("email") != -1)
+             err = {message: 'Validation failed', name: 'ValidationError',errors: {email: { type: "Email already in use"}}};
+           if(err.code == 11000 && err.err.indexOf("username") != -1)
+             err = {message: 'Validation failed', name: 'ValidationError',errors: {username: { type: "Username already in use"}}};
+
+           req.flash('error', 'Account creation failed');
+           res.render('accountsettings', {
+              title: 'register',
+               user: user,
+               flashmsg: req.flash('error'),
+               validationerrors: err.errors
+           });
+    }
+
+    Users.User.findOne({username:req.session.username}, function(err, theUser){
+        if(err) console.log(err)
+        var user = new Users.User(req.body.user);
+        theUser.email = user.email;
+        theUser.username = user.username;
+
+        theUser.save(function(err){
+            if(err) {
+                return settingsUpdateFailed(err, theUser);
+            }
+            else {
+                req.flash('info', 'Account updated');
+            }
+        })
+   })
+    }
+    exports.accountSettings = accountSettings;

@@ -223,6 +223,12 @@ describe 'Web tests', ->
             browser.queryAll('input[name="user[username]"]')[0].value.should.equal 'jimbob'
             done()
 
+        it 'should do the whole validation thing', (done) ->
+          browser.visit 'http://localhost:2999/account-settings/', (e, browser) ->
+            browser.fill('input[name="email"]', '').pressButton '#update', ->
+              browser.text('.text-error[for="user[email]"]').should.equal 'required'
+              done()
+
     describe 'reset password', ->
       browser = null
       before (done) ->
