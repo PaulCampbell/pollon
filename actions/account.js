@@ -42,7 +42,7 @@ function register(req, res) {
         if (err) return userSaveFailed(err);
         req.flash('info', 'Your account has been created');
         Emails.sendWelcome(user);
-        req.session.user_id = user.id;
+        req.session.username = user.username;
         res.redirect('/');
     });
 }
@@ -160,3 +160,19 @@ function changePasswordRequest(req,res) {
 }
 
 exports.changePasswordRequest = changePasswordRequest;
+
+
+function accountSettingsForm(req, res) {
+    console.log(req.session.username)
+    Users.User.findOne({username:req.session.username}, function(err, theUser){
+      if(err) console.log(err)
+      console.log(theUser)
+      res.render('accountsettings', {
+        user: theUser,
+        title: 'Account settings',
+        validationerrors: {}
+      });
+});
+}
+
+exports.accountSettingsForm = accountSettingsForm;

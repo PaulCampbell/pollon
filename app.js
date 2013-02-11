@@ -21,11 +21,17 @@ app.configure(function(){
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.cookieParser('your secret here'));
-  app.use(express.session());
+  app.use(express.cookieParser('somekindasecret'));
+  app.use(express.cookieSession('sid'));
+  app.use(express.session({ secret: "lola dog",  cookie: { maxAge: 60000 }}));
   app.use(app.router);
   app.use(require('stylus').middleware(__dirname + '/public'));
   app.use(express.static(path.join(__dirname, 'public')));
+  app.set('mailOptions', {
+    host: 'localhost',
+    port: '25',
+    from: 'dw@example.com'
+  });
 });
 
 app.configure('development', function(){

@@ -49,6 +49,12 @@ describe 'Web tests', ->
           browser.queryAll('#logout').length.should.equal 1
           done()
 
+  describe 'log out', ->
+    it 'should log the user out', (done) ->
+      zombie.visit 'http://localhost:2999/logout', (e, browser)  ->
+        browser.text('h2').should.equal 'Log in'
+        done()
+
   describe 'user registration', ->
 
     it 'should have no error lables when it first loads', (done) ->
@@ -187,3 +193,20 @@ describe 'Web tests', ->
           pressButton '#changepassword', ->
             browser.text('#flash').should.equal 'Password changed. Hopefully you can log in now.'
             done()
+
+
+  describe 'edit account', ->
+    describe 'form page', ->
+      it 'should redirect annonymous user to home page', (done) ->
+        zombie.visit 'http://localhost:2999/account-settings/', (e, browser) ->
+          browser.location.pathname.should.equal '/'
+          browser.text('#flash').should.equal 'You must be logged in for requested action.'
+          done()
+
+      it 'should allow logged in user access', (done) ->
+        zombie.visit 'http://localhost:2999/', (e, browser)  ->
+          browser.fill('input[name="email"]', 'jimbob@southwest.us').fill('input[name="password"]', 'mynewpassword').
+          pressButton '#login', ->
+            browser.visit 'http://localhost:2999/account-settings/', (e, browser) ->
+              browser.text('h2').should.equal 'Account settings'
+              done()

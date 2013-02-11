@@ -6,12 +6,10 @@ var flash = require('connect-flash');
 exports.index = function(req, res){
   res.render('index', {
       title: 'Express',
-      username: req.session.user_id,
+      username: req.session.username,
       flashmsg: req.flash('error')
   });
 };
-
-
 
 
 function login (req, res) {
@@ -26,15 +24,18 @@ function login (req, res) {
     }
     Users.User.findOne({email: post.email}, function (err, user) {
        if (err || !user) {
+           console.log('**** LOG IN ERROR ****')
            return loginFailed();
        } else {
            if(user.authenticate(post.password))
            {
-               req.session.user_id = user.username;
+               req.session.username = user.username;
+               console.log(req.session.username + ' logged in')
                res.redirect('/');
            }
            else
            {
+             console.log('**** LOG IN BAD PASSWORD **** ' + user.username + ' password attempted ' + post.password)
              return loginFailed();
            }
        }
@@ -45,7 +46,7 @@ exports.login = login;
 
 
 function logout (req, res) {
- delete req.session.user_id;
+ delete req.session.username;
  res.redirect('/');
 }
 
