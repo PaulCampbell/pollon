@@ -136,8 +136,6 @@ describe 'Web tests', ->
         two_days_ago.setDate(new Date().getDate()-2)
         password_reset = new PasswordResets.PasswordReset({user:user._id, requested: two_days_ago});
         password_reset.save (err) ->
-          if err
-            console.log(err)
           zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
             browser.location.pathname.should.equal '/'
             browser.text('#flash').should.equal 'Password reset link expired'
@@ -187,6 +185,5 @@ describe 'Web tests', ->
         zombie.visit 'http://localhost:2999/change-password/' + password_reset.token, (e, browser) ->
           browser.fill('input[name="password"]', 'mynewpassword').fill('input[name="confirmPassword"]','mynewpassword').
           pressButton '#changepassword', ->
-            console.log browser.text('#flash')
             browser.text('#flash').should.equal 'Password changed. Hopefully you can log in now.'
             done()

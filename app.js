@@ -4,8 +4,9 @@
  */
 
 var express = require('express')
-  , user = require('./routes/user')
-  , home = require('./routes/index')
+  , user = require('./actions/user')
+  , home = require('./actions/index')
+  , account = require('./actions/account')
   , http = require('http')
   , path = require('path')
   , mongoose = require('mongoose');
@@ -39,14 +40,14 @@ app.configure('development', function(){
 
 app.get('/', home.index);
 app.get('/users', user.list);
-app.get('/register', home.registerForm);
-app.post('/register', home.register);
+app.get('/register', account.registerForm);
+app.post('/register', account.register);
 app.post('/login', home.login);
 app.get('/logout', home.logout);
-app.get('/forgotten-password', home.forgottenPassword);
-app.post('/request-password', home.passwordRequest);
-app.get('/change-password/:token', home.changePassword)
-app.post('/change-password', home.changePasswordRequest)
+app.get('/forgotten-password', account.forgottenPassword);
+app.post('/request-password', account.passwordRequest);
+app.get('/change-password/:token', account.changePassword)
+app.post('/change-password', account.changePasswordRequest)
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

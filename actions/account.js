@@ -4,15 +4,6 @@ var Emails = require ('../services/emails.js')
 var PasswordResets = require ('../Models/PasswordReset.js')
 
 
-exports.index = function(req, res){
-  res.render('index', {
-      title: 'Express',
-      username: req.session.user_id,
-      flashmsg: req.flash('error')
-  });
-};
-
-
 function registerForm(req, res) {
     var user = new Users.User();
     res.render('register', {
@@ -37,6 +28,7 @@ function register(req, res) {
         if(err.type=="shortPassword")
           err = {message: 'Validation failed', name: 'ValidationError',errors: {password: { type: "Must be more than 5 characters"}}};
 
+
         req.flash('error', 'Account creation failed');
         res.render('register.jade', {
            title: 'register',
@@ -57,43 +49,6 @@ function register(req, res) {
 
 exports.register = register;
 
-
-function login (req, res) {
-    var post = req.body;
-
-    function loginFailed(){
-       req.flash('error', 'Email or password incorrect');
-       res.render('index', {
-           flashmsg: req.flash('error'),
-           title: 'Express'
-       });
-    }
-    Users.User.findOne({email: post.email}, function (err, user) {
-       if (err || !user) {
-           return loginFailed();
-       } else {
-           if(user.authenticate(post.password))
-           {
-               req.session.user_id = user.username;
-               res.redirect('/');
-           }
-           else
-           {
-             return loginFailed();
-           }
-       }
-    });
-}
-
-exports.login = login;
-
-
-function logout (req, res) {
- delete req.session.user_id;
- res.redirect('/');
-}
-
-exports.logout = logout;
 
 
 function forgottenPassword (req, res) {
