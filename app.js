@@ -1,16 +1,10 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
-  , user = require('./actions/user')
-  , home = require('./actions/index')
-  , account = require('./actions/account')
   , http = require('http')
   , path = require('path')
-  , mongoose = require('mongoose');
-var flash = require('connect-flash');
+  , mongoose = require('mongoose')
+  , flash = require('connect-flash')
+  , routes = require ('./infrastructure/routes.js');
+
 
 var app = express();
 
@@ -19,7 +13,7 @@ mongoose.connect('mongodb://localhost/vocab_dev');
 
 
 app.configure(function(){
-    app.use(flash());
+  app.use(flash());
   app.set('port', process.env.PORT || 2999);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -38,16 +32,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', home.index);
-app.get('/users', user.list);
-app.get('/register', account.registerForm);
-app.post('/register', account.register);
-app.post('/login', home.login);
-app.get('/logout', home.logout);
-app.get('/forgotten-password', account.forgottenPassword);
-app.post('/request-password', account.passwordRequest);
-app.get('/change-password/:token', account.changePassword)
-app.post('/change-password', account.changePasswordRequest)
+routes.init(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
