@@ -6,7 +6,7 @@ var flash = require('connect-flash');
 exports.index = function(req, res){
   res.render('index', {
       title: 'Express',
-      username: req.session.username,
+      username: req.session.user_id,
       flashmsg: req.flash('error')
   });
 };
@@ -29,8 +29,8 @@ function login (req, res) {
        } else {
            if(user.authenticate(post.password))
            {
-               req.session.username = user.username;
-               console.log(req.session.username + ' logged in')
+               req.session.user_id = user._id;
+               console.log(req.session.user_id + ' logged in')
                res.redirect('/');
            }
            else
@@ -46,7 +46,7 @@ exports.login = login;
 
 
 function logout (req, res) {
- delete req.session.username;
+ delete req.session.user_id;
  res.redirect('/');
 }
 

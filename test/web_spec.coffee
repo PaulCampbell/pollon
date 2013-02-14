@@ -50,8 +50,16 @@ describe 'Web tests', ->
           done()
 
   describe 'log out', ->
+    browser = null
+    before (done) ->
+      zombie.visit 'http://localhost:2999/', (e, brws)  ->
+        brws.fill('input[name="email"]', 'jimbob@southwest.us').fill('input[name="password"]', 'banjo1').
+        pressButton '#login', ->
+          browser = brws
+          done()
+
     it 'should log the user out', (done) ->
-      zombie.visit 'http://localhost:2999/logout', (e, browser)  ->
+      browser.visit 'http://localhost:2999/logout', (e, browser)  ->
         browser.text('h2').should.equal 'Log in'
         done()
 
@@ -224,10 +232,12 @@ describe 'Web tests', ->
             done()
 
         it 'should do the whole validation thing', (done) ->
-          browser.visit 'http://localhost:2999/account-settings/', (e, browser) ->
-            browser.fill('input[name="email"]', '').pressButton '#update', ->
+          browser.visit 'http://localhost:2999/account-settings/',{debug:true},  (e, browser) ->
+            browser.fill('input[name="email"]', ' ').pressButton '#update', ->
               browser.text('.text-error[for="user[email]"]').should.equal 'required'
               done()
+
+
 
     describe 'reset password', ->
       browser = null

@@ -161,7 +161,7 @@ function changePasswordRequest(req,res) {
 exports.changePasswordRequest = changePasswordRequest;
 
 function authedPasswordChange(req,res) {
-    Users.User.findOne( { username: req.session.username }, function(err, user){
+    Users.User.findOne( { _id: req.session.user_id }, function(err, user){
        if(err || !user)
            console.log('invalid email')
        else {
@@ -178,7 +178,7 @@ exports.authedPasswordChange = authedPasswordChange;
 
 
 function accountSettingsForm(req, res) {
-    Users.User.findOne({username:req.session.username}, function(err, theUser){
+    Users.User.findOne({_id:req.session.user_id}, function(err, theUser){
       if(err) console.log(err)
       res.render('accountsettings', {
         user: theUser,
@@ -207,7 +207,7 @@ function accountSettings(req, res){
            });
     }
 
-    Users.User.findOne({username:req.session.username}, function(err, theUser){
+    Users.User.findOne({_id:req.session.user_id}, function(err, theUser){
         if(err) console.log(err)
         var user = new Users.User(req.body.user);
         theUser.email = user.email;
