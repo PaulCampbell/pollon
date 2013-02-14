@@ -1,5 +1,5 @@
 var  user = require('../actions/user')
-  , home = require('../actions/index')
+  , home = require('../actions/home')
   , account = require('../actions/account')
   , authentication = require('./authentication.js')
 

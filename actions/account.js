@@ -202,7 +202,7 @@ function accountSettings(req, res){
            res.render('accountsettings', {
               title: 'register',
                user: user,
-               flashmsg: req.flash('error'),
+               flashError: req.flash('error'),
                validationerrors: err.errors
            });
     }

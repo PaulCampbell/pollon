@@ -1,8 +1,8 @@
 extends layout
 
 block content
-    - if(locals.flashmsg)
-        div(id='flash') #{locals.flashmsg}
+    - if(locals.flashError)
+        div(id='flash') #{locals.flashError}
     h1= title
 
     - if (locals.username)

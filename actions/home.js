@@ -7,7 +7,8 @@ exports.index = function(req, res){
   res.render('index', {
       title: 'Express',
       username: req.session.user_id,
-      flashmsg: req.flash('error')
+      flashInfo: req.flash('info'),
+      flashError:  req.flash('error')
   });
 };
 
@@ -18,7 +19,7 @@ function login (req, res) {
     function loginFailed(){
        req.flash('error', 'Email or password incorrect');
        res.render('index', {
-           flashmsg: req.flash('error'),
+           flashError: req.flash('error'),
            title: 'Express'
        });
     }
