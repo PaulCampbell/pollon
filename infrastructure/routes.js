@@ -19,7 +19,6 @@ app.post('/change-password', account.changePasswordRequest);
 app.post('/authedPasswordChange', account.authedPasswordChange, account.accountSettingsForm)
 app.get('/account-settings',authentication.checkAuth, account.accountSettingsForm);
 app.post('/account-settings',authentication.checkAuth, account.accountSettings);
-// app.get('/account-post', account.accountSettings);
 }
 
 exports.init = init;

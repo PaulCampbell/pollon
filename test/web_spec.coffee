@@ -16,10 +16,9 @@ before  (done) ->
     done()
 
 after  (done) ->
-  Users.User.remove (err) ->
-    if err
-      console.log err
-    done()
+  Users.User.remove {username: "jimbob"}, (err) ->
+    Users.User.remove {username: "jimmyabob2"}, (err) ->
+      done()
 
 describe 'Web tests', ->
 

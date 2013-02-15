@@ -209,9 +209,8 @@ function accountSettings(req, res){
 
     Users.User.findOne({_id:req.session.user_id}, function(err, theUser){
         if(err) console.log(err)
-        var user = new Users.User(req.body.user);
-        theUser.email = user.email;
-        theUser.username = user.username;
+        theUser.email = req.body.user.email;
+        theUser.username = req.body.user.username;
 
         theUser.save(function(err){
             if(err) {
