@@ -42,7 +42,7 @@ function register(req, res) {
         if (err) return userSaveFailed(err);
         req.flash('info', 'Your account has been created');
         Emails.sendWelcome(user);
-        req.session.username = user.username;
+        req.session.user_id = user._id;
         res.redirect('/');
     });
 }
@@ -139,7 +139,7 @@ function changePasswordRequest(req,res) {
             var validationError = user.validatePassword(req.body.password);
             var msg = "There has been a problem";
             if(validationError) {
-                console.log(validationError)
+               console.log(validationError)
                if(validationError.type=="noPassword")
                  msg = "Password required";
                if(validationError.type=="shortPassword")

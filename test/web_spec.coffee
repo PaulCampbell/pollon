@@ -76,6 +76,14 @@ describe 'Web tests', ->
           browser.queryAll('.text-error').length.should.greaterThan 0
           done()
 
+    it 'should log you in once youve registered', (done)->
+        zombie.visit 'http://localhost:2999/register',  (e, browser) ->
+          browser.fill('input[name="user[username]"]', 'jimmyabob2').
+          fill('input[name="user[email]"]', 'jimbob2@southwest.us').
+          fill('input[name="user[password]"]', 'password').pressButton '#register', ->
+            browser.queryAll('#logout').length.should.equal 1
+            done()
+
     describe 'password field validation', ->
 
       it 'should be present', (done) ->
@@ -91,6 +99,8 @@ describe 'Web tests', ->
           fill('input[name="user[password]"]', 'short').pressButton '#register', ->
             browser.text('.text-error[for="user[password]"]').should.equal 'Must be more than 5 characters'
             done()
+
+
 
     describe 'email field validation', ->
 
@@ -135,6 +145,7 @@ describe 'Web tests', ->
           browser.fill('input[name="user[username]"]', 'a').pressButton '#register', ->
             browser.text('.text-error[for="user[username]"]').should.equal 'Must be between 3 and 50 characters'
             done()
+
 
   describe 'password reset', ->
 
