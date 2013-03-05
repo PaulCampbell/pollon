@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    h1  Set up a new A/B test
+    section.css-table
+        h1 Add test
+
+        - if(locals.flashmsg)
+            div(class="alert alert-error") #{locals.flashmsg}
+
+        form(name="newTest", action="/tests", method="post")
+          div
+            label(for="ab_test[name]") Test name:
+            input(name='ab_test[name]', value=ab_test.name || '')
+            - if(locals.validationerrors.name)
+                label(for="ab_test[name]", class="text-error") #{locals.validationerrors.name.type}
+          div
+            label Page A url:
+            input(name='ab_test[page_a]', value=ab_test.page_a || '')
+            - if(locals.validationerrors.page_b)
+                label(for="ab_test[page_a]", class="text-error") #{locals.validationerrors.page_a.type}
+          div
+            label Page B url:
+            input(name='ab_test[page_b]', value=ab_test.page_b || '')
+            - if(locals.validationerrors.page_b)
+                label(for="ab_test[page_b]", class="text-error") #{locals.validationerrors.page_b.type}
+          div
+            input(type="submit", id='addTest', value="Add test")
+
