@@ -1,7 +1,6 @@
 var  user = require('../actions/user')
   , home = require('../actions/home')
   , account = require('../actions/account')
-  , ab_test = require('../actions/ab_test')
   , authentication = require('./authentication.js')
 
 function init(app){
@@ -21,8 +20,6 @@ app.post('/authedPasswordChange',authentication.checkAuth, account.authedPasswor
 app.get('/account-settings',authentication.checkAuth, account.accountSettingsForm);
 app.post('/account-settings',authentication.checkAuth, account.accountSettings);
 
-app.get('/tests/new', authentication.checkAuth, ab_test.addTestForm)
-app.post('/tests', authentication.checkAuth, ab_test.addTest)
 }
 
 exports.init = init;

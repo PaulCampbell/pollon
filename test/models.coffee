@@ -3,7 +3,6 @@ zombie = require 'zombie'
 Users = require '../Models/User.js'
 PasswordResets = require '../Models/PasswordReset.js'
 mongoose = require 'mongoose'
-ABTests = require '../Models/ABTest.js'
 
 user = null
 password_reset = null
@@ -43,10 +42,3 @@ describe 'PasswordReset', ->
     password_reset.isValid.should.equal false
     done()
 
-
-
-describe 'ABTest', ->
-  it 'must have a name', (done) ->
-    ab_test = new ABTests.ABTest({page_a:'http://localhost:8000/pagea.html'});
-    console.log(ab_test)
-    done()

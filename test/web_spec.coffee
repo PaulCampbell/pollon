@@ -264,19 +264,3 @@ describe 'Web tests', ->
             browser.text('h2').should.equal 'Update your password'
             done()
 
-
-
-  describe 'add an AB test', ->
-    browser = null
-
-    before (done) ->
-      zombie.visit 'http://localhost:2999/', (e, brwsr)  ->
-         brwsr.fill('input[name="email"]', 'jimbob@southwest.us').fill('input[name="password"]', 'mynewpassword').
-         pressButton '#login', ->
-           browser = brwsr
-           done()
-
-    it 'should display the add test form', (done) ->
-      browser.visit 'http://localhost:2999/tests/new', (e, browser) ->
-        browser.queryAll('#addTest').length.should.equal 1
-        done()
